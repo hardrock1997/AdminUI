@@ -27,19 +27,6 @@ function TableAndPaginationContainer() {
 
     let totalPages = Math.ceil(records.length/10)
  
-    // const fetchRecords = async()=>{
-    //     setLoadingSpinner(true)
-    //     let res;
-    //     try{
-    //         res=await axios.get(URL)
-    //         setLoadingSpinner(false)
-    //         setRecords(res.data)
-    //         setIsDataFetched(true)
-    //     } catch(error) {
-    //         setLoadingSpinner(true)
-    //         enqueueSnackbar(error.response.res.message,{variant:'error'})
-    //     }
-    // }
     useEffect(()=>{
         const fetchRecords = async()=>{
             setLoadingSpinner(true)
