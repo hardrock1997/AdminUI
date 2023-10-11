@@ -27,29 +27,36 @@ function TableAndPaginationContainer() {
 
     let totalPages = Math.ceil(records.length/10)
  
-    const fetchRecords = async()=>{
-        setLoadingSpinner(true)
-        let res;
-        try{
-            res=await axios.get(URL)
-            setLoadingSpinner(false)
-            return res.data
-        } catch(error) {
-            setLoadingSpinner(true)
-            enqueueSnackbar(error.response.res.message,{variant:'error'})
-        }
-    }
+    // const fetchRecords = async()=>{
+    //     setLoadingSpinner(true)
+    //     let res;
+    //     try{
+    //         res=await axios.get(URL)
+    //         setLoadingSpinner(false)
+    //         setRecords(res.data)
+    //         setIsDataFetched(true)
+    //     } catch(error) {
+    //         setLoadingSpinner(true)
+    //         enqueueSnackbar(error.response.res.message,{variant:'error'})
+    //     }
+    // }
     useEffect(()=>{
+        const fetchRecords = async()=>{
+            setLoadingSpinner(true)
+            let res;
+            try{
+                res=await axios.get(URL)
+                setLoadingSpinner(false)
+                setRecords(res.data)
+                setIsDataFetched(true)
+            } catch(error) {
+                setLoadingSpinner(true)
+                enqueueSnackbar(error.response.res.message,{variant:'error'})
+            }
+        }
+
         fetchRecords()
-        .then((response)=>{
-            setRecords(response)
-            setIsDataFetched(true)
-        })
-        .catch((error)=>{
-            setIsDataFetched(false)
-            enqueueSnackbar("Cannot fetch data from the server!",{variant:'error'})
-        })
-    },[])
+    },[enqueueSnackbar])
 
     useEffect(()=>{
         setFilteredRecords([])
